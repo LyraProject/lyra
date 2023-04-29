@@ -1,5 +1,6 @@
 // compile example:
 // cc example1.c -llyra_s -Lpath/to/lyra.a -I/path/to/lyra.h -o example1
+// OR use cmake with -DLYRA_BUILD_EXAMPLES=ON
 //
 // this example uselessly allocates integers.
 // once no more memory is left in the slab allocator, it errors.
