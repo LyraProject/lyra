@@ -1,0 +1,19 @@
+name: CMake Windows
+
+on: [push]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  linux-build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure CMake
+        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLYRA_BUILD_EXAMPLES=ON
+
+      - name: Build
+        run: cmake --build bin --config $BUILD_TYPE --parallel
