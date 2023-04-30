@@ -19,4 +19,4 @@ jobs:
         run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=gcc -DLYRA_BUILD_EXAMPLES=ON
 
       - name: Build
-        run: cmake --build bin --config $BUILD_TYPE --parallel
+        run: cmake --build bin --parallel
