@@ -1,4 +1,4 @@
-name: CMake Linux C
+name: CMake Linux
 
 on: [push]
 
@@ -6,7 +6,7 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  linux-build:
+  linux-build-c:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,6 +17,21 @@ jobs:
 
       - name: Configure CMake
         run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=gcc -DLYRA_BUILD_EXAMPLES=ON
+
+      - name: Build
+        run: cmake --build bin --config $BUILD_TYPE --parallel
+
+  linux-build-c:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install tools
+        run: apt-get install -y g++ cmake make
+
+      - name: Configure CMake
+        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=g++ -DLYRA_BUILD_EXAMPLES=ON
 
       - name: Build
         run: cmake --build bin --config $BUILD_TYPE --parallel
