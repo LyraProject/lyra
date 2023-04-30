@@ -20,28 +20,35 @@ typedef struct lyra_slab_ctx {
 #include "lyra.h"
 
 lyra_slab_ctx* lyra_slab_init(const struct lyra_slab_init_args* args) {
+    // it is required that the args not be null, and that malloc and free exist
+    // in some capacity
     if (!args || !args->original_malloc || !args->original_free) {
         return NULL;
     }
+    // allocate the context for returning later
     lyra_slab_ctx* ctx = args->original_malloc(sizeof(struct lyra_slab_ctx));
 
+    // populate the context
     ctx->alloc = args->original_malloc;
     ctx->dealloc = args->original_free;
-
     ctx->slab_size = args->slab_size;
     ctx->slab_count = args->slab_count;
     ctx->last_free_idx = 0;
 
+    // allocate memory for future allocations
     ctx->mem = ctx->alloc(ctx->slab_size * ctx->slab_count);
     if (!ctx->mem) {
         return NULL;
     }
 
+    // allocate memory for bookkeeping
     ctx->slabs = ctx->alloc(ctx->slab_count);
     if (!ctx->slabs) {
         return NULL;
     }
 
+    // set up bookkeeping - `true` means `free`, so it marks all
+    // slabs as free.
     memset(ctx->slabs, true, ctx->slab_count);
 
     return ctx;
