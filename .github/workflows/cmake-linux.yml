@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: cmake --build bin --config $BUILD_TYPE --parallel
 
-  linux-build-c:
+  linux-build-cpp:
     runs-on: ubuntu-latest
 
     steps:
