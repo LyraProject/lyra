@@ -7,14 +7,12 @@
 typedef void* (*lyra_malloc_fn)(size_t);
 typedef void (*lyra_free_fn)(void*);
 
-#ifndef lyra_IMPL
-typedef void lyra_slab_ctx;
-#endif
+typedef struct lyra_slab_ctx lyra_slab_ctx;
 
 /// Initialization arguments for a slab allocator.
 ///
 /// There are always three levels of slab size.
-struct lyra_slab_init_args {
+typedef struct lyra_slab_init_args {
     /// size of the largest possible slab
     size_t slab_size;
     /// how many large slabs to allocate to begin with
@@ -26,7 +24,7 @@ struct lyra_slab_init_args {
     lyra_malloc_fn original_malloc;
     /// malloc function to use for the initial allocation.
     lyra_free_fn original_free;
-};
+} lyra_slab_init_args;
 
 /// Initializes a lyra slab allocator context. This context is used
 /// for all further operations on the slab allocator.
@@ -45,7 +43,7 @@ struct lyra_slab_init_args {
 ///
 /// Returns NULL on error. Will fail if the arguments are invalid,
 /// or if allocation of the slab memory or bookkeeping memory failed.
-lyra_slab_ctx* lyra_slab_init(const struct lyra_slab_init_args*);
+lyra_slab_ctx* lyra_slab_init(const lyra_slab_init_args*);
 
 /// Frees all memory and cleans up after the allocator.
 /// Must be called if lyra_slab_init returned a valid context.

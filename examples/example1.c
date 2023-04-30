@@ -17,8 +17,8 @@ int main(void) {
     struct lyra_slab_init_args args = {
         .slab_size = sizeof(int), // we want to store integers, so this is enough
         .slab_count = 100, // enough space for 100 integers
-        .original_free = free,
         .original_malloc = malloc,
+        .original_free = free,
     };
     lyra_slab_ctx* ctx = lyra_slab_init(&args);
     if (!ctx) {
@@ -31,7 +31,7 @@ int main(void) {
         if (scanf("%d", &value) != 1) {
             return 2;
         }
-        int* x = lyra_slab_alloc(ctx, sizeof(int));
+        int* x = (int*)lyra_slab_alloc(ctx, sizeof(int));
         if (!x) {
             printf("no more memory left!\n");
             break;

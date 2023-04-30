@@ -9,24 +9,23 @@ typedef void (*lyra_free_fn)(void*);
 typedef struct lyra_slab_ctx {
     lyra_malloc_fn alloc;
     lyra_free_fn dealloc;
-    void* mem;
-    uint8_t* slabs;
     size_t slab_size;
     size_t slab_count;
     size_t last_free_idx;
+    void* mem;
+    uint8_t* slabs;
 } lyra_slab_ctx;
 
-#define lyra_IMPL
 #include "lyra.h"
 
-lyra_slab_ctx* lyra_slab_init(const struct lyra_slab_init_args* args) {
+lyra_slab_ctx* lyra_slab_init(const lyra_slab_init_args* args) {
     // it is required that the args not be null, and that malloc and free exist
     // in some capacity
     if (!args || !args->original_malloc || !args->original_free) {
         return NULL;
     }
     // allocate the context for returning later
-    lyra_slab_ctx* ctx = args->original_malloc(sizeof(struct lyra_slab_ctx));
+    lyra_slab_ctx* ctx = (lyra_slab_ctx*)args->original_malloc(sizeof(struct lyra_slab_ctx));
 
     // populate the context
     ctx->alloc = args->original_malloc;
@@ -42,7 +41,7 @@ lyra_slab_ctx* lyra_slab_init(const struct lyra_slab_init_args* args) {
     }
 
     // allocate memory for bookkeeping
-    ctx->slabs = ctx->alloc(ctx->slab_count);
+    ctx->slabs = (uint8_t*)ctx->alloc(ctx->slab_count);
     if (!ctx->slabs) {
         return NULL;
     }
