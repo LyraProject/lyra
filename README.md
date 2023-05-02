@@ -76,6 +76,8 @@ Example use case: Fixed-size queue for received data which not yet processed.
 
 ## Lyra Threadsafe Queue
 
+[only available with C11's `<threads.h>`]
+
 Header: [`lyra_tsque.h`](./src/lyra_tsque.h)
 
 Example: [`example3`](./examples/example3.c)

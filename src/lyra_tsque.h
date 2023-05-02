@@ -3,6 +3,18 @@
 #include "lyra_common.h"
 #include <stdbool.h>
 
+// clang-format off
+#if defined(__STDC_NO_THREADS__)
+    #define LYRA_NO_THREADS
+#else
+    #include <threads.h>
+#endif
+// clang-format on
+
+#if defined(LYRA_NO_THREADS)
+#warning "Not building lyra_tsque as there's no support for C11's threads."
+#else
+
 typedef struct lyra_tsque lyra_tsque;
 
 /// Arguments for lyra_tsque_init
@@ -43,3 +55,5 @@ void lyra_tsque_wait_and_pop(lyra_tsque*, void* data);
 /// Pops an element if one is available and returns true, otherwise returns false.
 /// Never blocks.
 bool lyra_tsque_try_pop(lyra_tsque*, void* data);
+
+#endif
