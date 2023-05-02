@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Configure CMake
-        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLYRA_BUILD_EXAMPLES=ON
+        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLYRA_BUILD_EXAMPLES=ON -DLYRA_THREADS=OFF
 
       - name: Build
         run: cmake --build bin --parallel
