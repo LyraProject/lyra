@@ -4,6 +4,7 @@ project(lyra)
 
 option(LYRA_BUILD_EXAMPLES "Build lyra usage examples from the examples folder" OFF)
 option(LYRA_BUILD_TESTS "Build lyra unit tests" OFF)
+option(LYRA_THREADS "Build with threads support and thread libraries" ON)
 
 include(CompilerWarnings.cmake)
 
@@ -13,11 +14,15 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(LYRA_SRCS 
     src/lyra_slab.c
     src/lyra_cbuf.c
-    src/lyra_tsque.c
     src/lyra_slab.h
     src/lyra_cbuf.h
-    src/lyra_tsque.h
     src/lyra.h)
+
+if (${LYRA_THREADS})
+   list(APPEND LYRA_SRCS
+        src/lyra_tsque.c
+        src/lyra_tsque.h)
+endif()
 
 # tests are c++
 set(LYRA_TEST_SRCS
@@ -38,8 +43,10 @@ if (${LYRA_BUILD_EXAMPLES})
     target_link_libraries(example1 lyra_s)
     add_executable(example2 examples/example2.c)
     target_link_libraries(example2 lyra_s)
-    add_executable(example3 examples/example3.c)
-    target_link_libraries(example3 lyra_s)
+    if (${LYRA_THREADS})
+        add_executable(example3 examples/example3.c)
+        target_link_libraries(example3 lyra_s)
+    endif()
 endif()
 
 if (${LYRA_BUILD_TESTS})
