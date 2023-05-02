@@ -30,7 +30,7 @@ int main(void) {
         int value;
         if (scanf("%d", &value) != 1) {
             printf("Exit!\n");
-            return 0;
+            break;
         }
         int* x = (int*)lyra_slab_alloc(ctx, sizeof(int));
         if (!x) {
