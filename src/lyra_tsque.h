@@ -12,7 +12,7 @@
 // clang-format on
 
 #if defined(LYRA_NO_THREADS)
-#warning "Not building lyra_tsque as there's no support for C11's threads."
+// Not building lyra_tsque as there's no support for C11's threads.
 #else
 
 typedef struct lyra_tsque lyra_tsque;
