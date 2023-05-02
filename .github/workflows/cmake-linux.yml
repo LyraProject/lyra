@@ -68,3 +68,45 @@ jobs:
         with:
           name: tests_tcc
           path: bin/lyra_tests
+
+  tests-gcc:
+    needs: linux-build-gcc
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Tests
+        uses: actions/download-artifact@v3
+        with:
+          name: tests_gcc
+
+      - name: Run Tests
+        shell: bash
+        run: chmod +x tests_gcc && ./tests_gcc
+
+  tests-clang:
+    needs: linux-build-clang
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Tests
+        uses: actions/download-artifact@v3
+        with:
+          name: tests_clang
+
+      - name: Run Tests
+        shell: bash
+        run: chmod +x tests_clang && ./tests_clang
+  
+  tests-tcc:
+    needs: linux-build-tcc
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Tests
+        uses: actions/download-artifact@v3
+        with:
+          name: tests_tcc
+
+      - name: Run Tests
+        shell: bash
+        run: chmod +x tests_tcc && ./tests_tcc
