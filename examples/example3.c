@@ -47,9 +47,6 @@ int main(void) {
     while (true) {
         memset(buf, 0, sizeof(buf));
         scanf("%9s", buf);
-        if (strcmp(buf, "exit") == 0) {
-            break;
-        }
         while (!lyra_tsque_try_push(q, buf)) {
             printf("failed to push '%s': no room in queue! waiting and trying again...\n", buf);
             struct timespec ts;
