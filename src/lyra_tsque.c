@@ -69,6 +69,21 @@ void lyra_tsque_push(lyra_tsque* q, const void* data) {
     LYRA_ASSERT(ret == thrd_success);
 }
 
+bool lyra_tsque_try_push(lyra_tsque* q, const void* data) {
+    bool pushed = false;
+    int ret = mtx_lock(&q->mtx);
+    LYRA_ASSERT(ret == thrd_success);
+    if (!lyra_cbuf_is_full(q->cbuf)) {
+        lyra_cbuf_push(q->cbuf, data);
+        pushed = true;
+    }
+    ret = mtx_unlock(&q->mtx);
+    LYRA_ASSERT(ret == thrd_success);
+    ret = cnd_broadcast(&q->cnd);
+    LYRA_ASSERT(ret == thrd_success);
+    return pushed;
+}
+
 void lyra_tsque_wait_and_pop(lyra_tsque* q, void* out_value) {
     int ret = mtx_lock(&q->mtx);
     LYRA_ASSERT(ret == thrd_success);

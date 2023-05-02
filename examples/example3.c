@@ -47,7 +47,13 @@ int main(void) {
     while (true) {
         memset(buf, 0, sizeof(buf));
         scanf("%9s", buf);
-        lyra_tsque_push(q, buf);
+        while (!lyra_tsque_try_push(q, buf)) {
+            printf("failed to push '%s': no room in queue! waiting and trying again...\n", buf);
+            struct timespec ts;
+            ts.tv_sec = 1;
+            ts.tv_nsec = 0;
+            thrd_sleep(&ts, NULL);
+        }
     }
 
     for (size_t i = 0; i < 10; ++i) {

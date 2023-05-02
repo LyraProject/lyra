@@ -73,3 +73,13 @@ Example: [`example2`](./examples/example2.c)
 Summary: A fixed-size circular buffer (FIFO). The user can push() (insert) and pop (get & remove) values. Once full, new values will override the old values.
 
 Example use case: Fixed-size queue for received data which not yet processed.
+
+## Lyra Threadsafe Queue
+
+Header: [`lyra_tsque.h`](./src/lyra_tsque.h)
+
+Example: [`example3`](./examples/example3.c)
+
+Summary: A threadsafe fixed-size queue (based on `lyra_cbuf`). It uses a mutex and a condition variable to synchronize between threads.
+
+

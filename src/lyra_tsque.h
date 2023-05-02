@@ -31,6 +31,11 @@ void lyra_tsque_deinit(lyra_tsque*);
 /// Pushes an element into the queue and notifies consumers.
 void lyra_tsque_push(lyra_tsque*, const void* data);
 
+/// Pushes an element into the queue and notifies consumers.
+/// If the queue is full, returns false and does not push anything.
+/// If the queue has space, returns true and pushes the element.
+bool lyra_tsque_try_push(lyra_tsque*, const void* data);
+
 /// Pops an element from the queue as soon as one is available.
 /// Blocks until one is made available (via _push())
 void lyra_tsque_wait_and_pop(lyra_tsque*, void* data);
