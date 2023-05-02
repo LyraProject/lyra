@@ -16,5 +16,6 @@ jobs:
         with:
           name: tests_gcc
 
-      - shell: bash
+      - name: Run Tests
+        shell: bash
         run: chmod +x tests_gcc && ./tests_gcc
