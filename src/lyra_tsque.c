@@ -1,18 +1,7 @@
 #include "lyra_tsque.h"
 #include "lyra_cbuf.h"
 #include "lyra_common.h"
-
-// clang-format off
-#if defined(__STDC_NO_THREADS__)
-    #define LYRA_NO_THREADS
-#else
-    #include <threads.h>
-#endif
-// clang-format on
-
-#if defined(LYRA_NO_THREADS)
-#warning "Not building lyra_tsque as there's no support for C11's threads."
-#else
+#include <threads.h>
 
 typedef struct lyra_tsque {
     mtx_t mtx;
@@ -125,4 +114,3 @@ bool lyra_tsque_try_pop(lyra_tsque* q, void* out_value) {
     }
 }
 
-#endif // !LYRA_NO_THREADS

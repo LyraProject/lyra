@@ -17,6 +17,8 @@ You can use Lyra from cmake by adding it as a subdirectory: `add_subdirectory(ly
 
 You can integrate Lyra source into any build system. Open the [CMakeLists.txt](./CMakeLists.txt) which ships with Lyra's source code. In there, you can see a variable called `LYRA_SRCS` - all those source files are the files Lyra needs. Simply add these to your build system of choice. No extra definitions or similar are needed.
 
+If your environment supports C11's `<threads.h>`, you can add the `src/lyra_tsque.c` to the `LYRA_SRCS` (the CMakeLists.txt does this as well).
+
 ## Configuration
 
 ### Before Compilation
@@ -76,7 +78,7 @@ Example use case: Fixed-size queue for received data which not yet processed.
 
 ## Lyra Threadsafe Queue
 
-[only available with C11's `<threads.h>`]
+[only available with C11's `<threads.h>`, enable/disable in CMakeLists by setting `LYRA_THREADS` to `ON` or `OFF`]
 
 Header: [`lyra_tsque.h`](./src/lyra_tsque.h)
 
