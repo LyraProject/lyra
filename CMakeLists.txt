@@ -31,5 +31,7 @@ if (${LYRA_BUILD_EXAMPLES})
     target_link_libraries(example1 lyra_s)
     add_executable(example2 examples/example2.c)
     target_link_libraries(example2 lyra_s)
+    add_executable(example3 examples/example3.c)
+    target_link_libraries(example3 lyra_s)
 endif()
 
