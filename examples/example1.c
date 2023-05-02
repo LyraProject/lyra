@@ -26,10 +26,11 @@ int main(void) {
     }
     
     for(;;) {
-        printf("enter an integer to allocate memory for it: ");
+        printf("enter an integer to allocate memory for it (or non-number to exit): ");
         int value;
         if (scanf("%d", &value) != 1) {
-            return 2;
+            printf("Exit!\n");
+            break;
         }
         int* x = (int*)lyra_slab_alloc(ctx, sizeof(int));
         if (!x) {
