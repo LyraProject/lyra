@@ -16,7 +16,7 @@ typedef struct lyra_slab_ctx {
     uint8_t* slabs;
 } lyra_slab_ctx;
 
-#include "lyra.h"
+#include "lyra_slab.h"
 
 lyra_slab_ctx* lyra_slab_init(const lyra_slab_init_args* args) {
     // it is required that the args not be null, and that malloc and free exist
