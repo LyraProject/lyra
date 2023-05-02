@@ -10,43 +10,61 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install tools
         run: sudo apt-get install -y gcc cmake make
 
       - name: Configure CMake
-        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=gcc -DLYRA_BUILD_EXAMPLES=ON
+        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=gcc -DLYRA_BUILD_EXAMPLES=ON -DLYRA_BUILD_TESTS=ON
 
       - name: Build
         run: cmake --build bin --parallel
+
+      - name: Archive Tests
+        uses: actions/upload-artifact@v3
+        with:
+          name: tests_gcc
+          path: bin/lyra_tests
   
   linux-build-clang:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install tools
         run: sudo apt-get install -y clang cmake make
 
       - name: Configure CMake
-        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=clang -DLYRA_BUILD_EXAMPLES=ON
+        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=clang -DLYRA_BUILD_EXAMPLES=ON -DLYRA_BUILD_TESTS=ON
 
       - name: Build
         run: cmake --build bin --parallel
+
+      - name: Archive Tests
+        uses: actions/upload-artifact@v3
+        with:
+          name: tests_clang
+          path: bin/lyra_tests
   
   linux-build-tcc:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install tools
         run: sudo apt-get install -y tcc cmake make
 
       - name: Configure CMake
-        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=tcc -DLYRA_BUILD_EXAMPLES=ON
+        run: cmake $GITHUB_WORKSPACE -B bin -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=tcc -DLYRA_BUILD_EXAMPLES=ON -DLYRA_BUILD_TESTS=ON
 
       - name: Build
         run: cmake --build bin --parallel
+
+      - name: Archive Tests
+        uses: actions/upload-artifact@v3
+        with:
+          name: tests_tcc
+          path: bin/lyra_tests

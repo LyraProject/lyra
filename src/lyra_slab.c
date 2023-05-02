@@ -21,7 +21,11 @@ typedef struct lyra_slab_ctx {
 lyra_slab_ctx* lyra_slab_init(const lyra_slab_init_args* args) {
     // it is required that the args not be null, and that malloc and free exist
     // in some capacity
-    if (!args || !args->original_malloc || !args->original_free) {
+    if (!args 
+        || !args->original_malloc 
+        || !args->original_free
+        || args->slab_count == 0
+        || args->slab_size == 0) {
         return NULL;
     }
     // allocate the context for returning later

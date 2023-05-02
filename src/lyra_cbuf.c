@@ -16,7 +16,11 @@ typedef struct lyra_cbuf {
 lyra_cbuf* lyra_cbuf_init(const lyra_cbuf_init_args* args) {
     // all these are basic conditions for the following code
     // to be able to make assumptions (has allocator, etc.)
-    if (!args || !args->dealloc || !args->alloc) {
+    if (!args 
+        || !args->dealloc 
+        || !args->alloc
+        || args->count == 0
+        || args->element_size == 0) {
         return NULL;
     }
     // allocate struct itself

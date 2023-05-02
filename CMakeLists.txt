@@ -22,6 +22,7 @@ set(LYRA_SRCS
 # tests are c++
 set(LYRA_TEST_SRCS
     src/tests/lyra_cbuf_tests.cpp
+    src/tests/lyra_slab_tests.cpp
     )
 
 add_library(lyra SHARED ${LYRA_SRCS})
@@ -45,8 +46,8 @@ if (${LYRA_BUILD_TESTS})
     # get googletest
     include(FetchContent)
     FetchContent_Declare(
-      googletest
-      URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+        googletest
+        URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
     )
     # for windows
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
