@@ -1,8 +1,19 @@
-#include "lyra_tsque.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <threads.h>
+// clang-format off
+#if defined(__STDC_NO_THREADS__)
+    #define LYRA_NO_THREADS
+#else
+    #include "lyra_tsque.h"
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <threads.h>
+#endif
+// clang-format on
+
+#if defined(LYRA_NO_THREADS)
+// Not building lyra_tsque as there's no support for C11's threads.
+int main(void) { }
+#else
 
 /// This example demonstrates the use of `lyra_tsque`.
 /// Whatever you enter is echoed from different threads back to the
@@ -61,3 +72,5 @@ int main(void) {
     }
     lyra_tsque_deinit(q);
 }
+
+#endif
