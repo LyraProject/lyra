@@ -12,8 +12,10 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(LYRA_SRCS 
     src/lyra_slab.c
     src/lyra_cbuf.c
+    src/lyra_tsque.c
     src/lyra_slab.h
     src/lyra_cbuf.h
+    src/lyra_tsque.h
     src/lyra.h)
 
 add_library(lyra SHARED ${LYRA_SRCS})
