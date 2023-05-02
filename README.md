@@ -7,6 +7,8 @@ Lyra is a general purpose library written in C. Anyone is welcome to add functio
 
 CI/CD pipelines test builds with `clang`, `gcc`, `tcc` all on Linux, and MSVC on Windows.
 
+All major features are unit-tested from C++ with googletest.
+
 ## How to build
 
 ### Option 1: CMake
