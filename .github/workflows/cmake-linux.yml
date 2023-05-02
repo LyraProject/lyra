@@ -81,7 +81,7 @@ jobs:
 
       - name: Run Tests
         shell: bash
-        run: chmod +x tests_gcc && ./tests_gcc
+        run: chmod +x lyra_tests && ./lyra_tests
 
   tests-clang:
     needs: linux-build-clang
@@ -95,7 +95,7 @@ jobs:
 
       - name: Run Tests
         shell: bash
-        run: chmod +x tests_clang && ./tests_clang
+        run: chmod +x lyra_tests && ./lyra_tests
   
   tests-tcc:
     needs: linux-build-tcc
@@ -109,4 +109,4 @@ jobs:
 
       - name: Run Tests
         shell: bash
-        run: chmod +x tests_tcc && ./tests_tcc
+        run: chmod +x lyra_tests && ./lyra_tests
